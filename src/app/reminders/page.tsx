@@ -1,6 +1,24 @@
 import { getOrderedReminders, getDisplayTitle, stripReminderHeading } from "@/lib/reminders";
 import Link from "next/link";
 import { MarkdownPreview } from "@/components/MarkdownPreview";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "All Reminders",
+  description: "Browse all reminders I've written over the years. A collection of wisdom and life lessons By Rafid Hoda.",
+  openGraph: {
+    title: "All Reminders | Reminders to myself",
+    description: "Browse all reminders I've written over the years. A collection of wisdom and life lessons By Rafid Hoda.",
+    url: "https://reminderstomyself.com/reminders",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "All Reminders | Reminders to myself",
+    description: "Browse all reminders I've written over the years. A collection of wisdom and life lessons By Rafid Hoda.",
+    creator: "@rafidhoda",
+  },
+};
 
 export default function RemindersPage() {
   const reminders = getOrderedReminders();

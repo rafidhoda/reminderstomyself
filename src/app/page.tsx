@@ -1,6 +1,25 @@
 import { getRandomReminder, stripReminderHeading, getDisplayTitle, getNextReminder, getPreviousReminder } from "@/lib/reminders";
 import Link from "next/link";
 import { MarkdownContent } from "@/components/MarkdownContent";
+import { StructuredData } from "@/components/StructuredData";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Reminders to myself",
+  description: "A collection of reminders I've written over the years By Rafid Hoda. Discover wisdom and life lessons.",
+  openGraph: {
+    title: "Reminders to myself",
+    description: "A collection of reminders I've written over the years By Rafid Hoda.",
+    url: "https://reminderstomyself.com",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Reminders to myself",
+    description: "A collection of reminders I've written over the years By Rafid Hoda.",
+    creator: "@rafidhoda",
+  },
+};
 
 export default function Home() {
   const reminder = getRandomReminder();
@@ -28,7 +47,21 @@ export default function Home() {
   const prevReminder = getPreviousReminder(reminder.slug);
 
   return (
-    <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black">
+    <>
+      <StructuredData
+        type="WebSite"
+        data={{
+          name: "Reminders to myself",
+          description: "A collection of reminders I've written over the years By Rafid Hoda.",
+          url: "https://reminderstomyself.com",
+          author: {
+            "@type": "Person",
+            name: "Rafid Hoda",
+            url: "https://x.com/rafidhoda",
+          },
+        }}
+      />
+      <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black">
       <main className="flex flex-1 w-full max-w-5xl mx-auto flex-col justify-center py-8 sm:py-16 md:py-24 lg:py-32 px-6 sm:px-8 md:px-12 lg:px-16 bg-white dark:bg-black">
         <Link
           href="/reminders"
@@ -81,5 +114,6 @@ export default function Home() {
         </p>
       </footer>
     </div>
+    </>
   );
 }

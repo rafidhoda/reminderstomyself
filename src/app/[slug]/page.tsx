@@ -2,6 +2,8 @@ import { getReminderBySlug, getAllSlugs, stripReminderHeading, getDisplayTitle, 
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MarkdownContent } from "@/components/MarkdownContent";
+import { StructuredData } from "@/components/StructuredData";
+import type { Metadata } from "next";
 
 interface PageProps {
   params: Promise<{
@@ -16,6 +18,45 @@ export async function generateStaticParams() {
   }));
 }
 
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const reminder = getReminderBySlug(slug);
+
+  if (!reminder) {
+    return {
+      title: "Reminder not found",
+    };
+  }
+
+  const title = getDisplayTitle(reminder);
+  const content = stripReminderHeading(reminder.content);
+  const description = content.split('\n').filter(line => line.trim())[0]?.replace(/\*\*/g, '').substring(0, 160) || `A reminder: ${title}`;
+  const url = `https://reminderstomyself.com/${slug}`;
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "article",
+      authors: ["Rafid Hoda"],
+      publishedTime: reminder.date,
+      siteName: "Reminders to myself",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      creator: "@rafidhoda",
+    },
+  };
+}
+
 export default async function ReminderPage({ params }: PageProps) {
   const { slug } = await params;
   const reminder = getReminderBySlug(slug);
@@ -26,9 +67,30 @@ export default async function ReminderPage({ params }: PageProps) {
 
   const nextReminder = getNextReminder(slug);
   const prevReminder = getPreviousReminder(slug);
+  const content = stripReminderHeading(reminder.content);
+  const url = `https://reminderstomyself.com/${slug}`;
 
   return (
-    <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black">
+    <>
+      <StructuredData
+        type="Article"
+        data={{
+          headline: getDisplayTitle(reminder),
+          description: content.split('\n').filter(line => line.trim())[0]?.replace(/\*\*/g, '') || getDisplayTitle(reminder),
+          author: {
+            "@type": "Person",
+            name: "Rafid Hoda",
+            url: "https://x.com/rafidhoda",
+          },
+          datePublished: reminder.date,
+          url,
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": url,
+          },
+        }}
+      />
+      <div className="flex min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black">
       <main className="flex flex-1 w-full max-w-5xl mx-auto flex-col justify-center py-8 sm:py-16 md:py-24 lg:py-32 px-6 sm:px-8 md:px-12 lg:px-16 bg-white dark:bg-black">
         <Link
           href="/reminders"
@@ -78,6 +140,7 @@ export default async function ReminderPage({ params }: PageProps) {
         </p>
       </footer>
     </div>
+    </>
   );
 }
 
