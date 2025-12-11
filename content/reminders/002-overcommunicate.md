@@ -25,6 +25,3 @@ It’s almost always better to over-communicate than under-communicate.
 What’s obvious to you may not be obvious to others, and vice versa.
 
 Avoid assumptions. They are the root of most miscommunication.
-
-And remember:
-Writing things down > Not writing things down.
