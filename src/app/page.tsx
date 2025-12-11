@@ -4,6 +4,9 @@ import { MarkdownContent } from "@/components/MarkdownContent";
 import { StructuredData } from "@/components/StructuredData";
 import type { Metadata } from "next";
 
+// Force dynamic rendering so we get a new random reminder on each visit
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "Reminders to myself",
   description: "A collection of reminders I've written over the years By Rafid Hoda. Discover wisdom and life lessons.",
