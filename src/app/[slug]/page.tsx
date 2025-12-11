@@ -90,51 +90,51 @@ export default async function ReminderPage({ params }: PageProps) {
           },
         }}
       />
-      <div className="flex h-screen sm:min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-5xl mx-auto flex-col justify-center py-4 sm:py-16 md:py-24 lg:py-32 px-4 sm:px-8 md:px-12 lg:px-16 bg-white dark:bg-black min-h-0">
+      <div className="flex h-screen sm:min-h-screen flex-col bg-zinc-50 font-sans dark:bg-black overflow-hidden">
+      <main className="flex flex-1 w-full max-w-5xl mx-auto flex-col sm:justify-center py-2 sm:py-16 md:py-24 lg:py-32 px-3 sm:px-8 md:px-12 lg:px-16 bg-white dark:bg-black min-h-0 overflow-y-auto">
         <Link
           href="/reminders"
-          className="block mb-3 sm:mb-8 text-xs sm:text-base text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+          className="block mb-2 sm:mb-8 text-xs sm:text-base text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
         >
           ← Back to reminders
         </Link>
         
         <div className="w-full">
-          <div className="flex items-center justify-between mb-4 sm:mb-8 md:mb-12">
+          <div className="flex items-center justify-between mb-3 sm:mb-8 md:mb-12">
             {prevReminder ? (
               <Link
                 href={`/${prevReminder.slug}`}
-                className="text-lg sm:text-2xl md:text-3xl text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                className="text-base sm:text-2xl md:text-3xl text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
               >
                 ←
               </Link>
             ) : (
-              <span className="text-lg sm:text-2xl md:text-3xl text-zinc-300 dark:text-zinc-700">←</span>
+              <span className="text-base sm:text-2xl md:text-3xl text-zinc-300 dark:text-zinc-700">←</span>
             )}
             
-            <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-black dark:text-zinc-50 text-center px-2">
+            <h1 className="text-base sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-black dark:text-zinc-50 text-center px-1 sm:px-2">
               {getDisplayTitle(reminder)}
             </h1>
             
             {nextReminder ? (
               <Link
                 href={`/${nextReminder.slug}`}
-                className="text-lg sm:text-2xl md:text-3xl text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                className="text-base sm:text-2xl md:text-3xl text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
               >
                 →
               </Link>
             ) : (
-              <span className="text-lg sm:text-2xl md:text-3xl text-zinc-300 dark:text-zinc-700">→</span>
+              <span className="text-base sm:text-2xl md:text-3xl text-zinc-300 dark:text-zinc-700">→</span>
             )}
           </div>
           
-          <div className="prose prose-xl dark:prose-invert max-w-none text-left mb-4 sm:mb-16">
+          <div className="prose prose-sm sm:prose-xl dark:prose-invert max-w-none text-left mb-2 sm:mb-16">
             <MarkdownContent content={stripReminderHeading(reminder.content)} />
           </div>
         </div>
       </main>
       
-      <footer className="w-full max-w-5xl mx-auto px-4 sm:px-8 md:px-12 lg:px-16 py-3 sm:py-6 md:py-8 border-t border-zinc-200 dark:border-zinc-800 flex-shrink-0">
+      <footer className="w-full max-w-5xl mx-auto px-3 sm:px-8 md:px-12 lg:px-16 py-2 sm:py-6 md:py-8 border-t border-zinc-200 dark:border-zinc-800 flex-shrink-0">
         <p className="text-xs sm:text-base text-zinc-600 dark:text-zinc-400 text-center">
           Reminders to myself by <span className="font-semibold text-zinc-900 dark:text-zinc-100">Rafid Hoda</span>
         </p>
