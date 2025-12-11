@@ -13,7 +13,7 @@ export default function RemindersPage() {
             Reminders to myself
           </h1>
           <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400">
-            A collection of reminders I've written over the years
+            A collection of reminders I've written over the years By Rafid Hoda.
           </p>
         </div>
 
